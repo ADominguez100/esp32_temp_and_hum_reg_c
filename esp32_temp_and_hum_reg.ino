@@ -104,17 +104,16 @@ void loop() {
   client.loop();
 
   unsigned long now = millis();
-  if (now - lastMsg > 2000) {
+  if (now - lastMsg > 1000) { // Canviem el temps d'actualització aquí (1000 ms = 1 segon)
     lastMsg = now;
     TempAndHumidity  data = dhtSensor.getTempAndHumidity();
-
     String temp = String(data.temperature, 2);
-    Serial.print("Temperature: ");
+    Serial.print("Temperatura: "); // Modifiquem l'idioma en que es mostren els missatges de temperatura i humitat
     Serial.println(temp);
     client.publish("iotosme/temperature", temp.c_str());
     
     String hum = String(data.humidity, 1);
-    Serial.print("Humidity: ");
+    Serial.print("Humitat: ");
     Serial.println(hum);
     client.publish("iotosme/humidity", hum.c_str());
   }
